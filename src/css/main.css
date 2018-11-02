@@ -1,0 +1,287 @@
+
+/* This is the style sheet of the application */
+.heading {
+  margin: 0;
+  text-align: center;
+  background-color: #111314;
+  padding: 0.5cm;
+}
+
+.map {
+  margin: 0;
+  width: 85%;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1{
+color: #c0c0c0;
+}
+
+.text-field {
+  width: 15%;
+  height: 100vh;
+  background-color: #111314;
+}
+
+/* TODO: search the elements */
+.text-field input {
+  width: 100%;
+  line-height: 0.8cm;
+  padding: 17px;
+  padding-left: 55px;
+  width: 300px;
+  border: 1px solid #f5f5f5;
+  font-size: 13px;
+  color: #808080;
+  background-image: url('https://s2.gifyu.com/images/search-blue.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 5vh;
+  outline: 0;
+}
+
+.text-field ul {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.text-field li {
+  text-decoration: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  line-height: 2cm;
+}
+
+.menu {
+  display: none;
+}
+
+.error {
+  color: #ff0000;
+}
+
+li:focus {
+  background-color: #9f8ef9;
+}
+
+
+/* Portrait */
+@media (min-width: 280px) and (max-width: 319px) and (orientation: portrait) {
+  .heading {
+    height: 8px;
+    padding: 0.5cm;
+  }
+  h1{
+  position: relative;
+  top: -20px;
+  font-size: 1em;
+  }
+
+  .text-field {
+    width: 100%;
+    height: 40%;
+    background-color: #080808;
+  }
+  
+  .text-field input {
+    width: 100%;
+    height: 8px;
+    line-height: 1cm;
+    font-size: 15px;
+    background-size: 3vh;
+  }
+  
+  .text-field ul {
+    font-size: 14px;
+    position: relative;
+    top: -16px;
+  }
+  
+  .text-field li {
+    line-height: 1cm;
+  }
+  
+  .map{
+    width: 100%;
+  }
+
+}
+
+
+/* Portrait */
+@media (min-width: 320px) and (max-width: 480px) and (orientation: portrait) {
+  
+  .heading {
+    height: 8px;
+    padding: 0.5cm;
+  }
+
+  h1{
+  position: relative;
+  top: -20px;
+  font-size: 1.2em;
+  }
+
+  .text-field {
+    width: 100%;
+    height: 40%;
+    background-color: #080808;
+  }
+  
+  .text-field input {
+    width: 100%;
+    height: 8px;
+    line-height: 1cm;
+    font-size: 15px;
+    background-size: 3vh;
+  }
+  
+  .text-field ul {
+    font-size: 14px;
+    position: relative;
+    top: -16px;
+  }
+  
+  .text-field li {
+    line-height: 1cm;
+  }
+  
+  .map{
+    width: 100%;
+  }
+}
+
+/* Landscape */
+@media (min-width : 320px)
+and (max-width : 480px)  and (orientation: landscape) {
+  
+  .heading {
+    height: 10px;
+  }
+
+  h1{
+    position: relative;
+    top:-19px;
+    left:-20px;
+    font-size: 1.2em;
+  }
+
+  .text-field{
+    width: 20%;
+    height: 100%;
+  }
+
+  .text-field input {
+    height: 8px;
+    line-height: 1cm;
+    padding-left: 25px;
+    font-size: 12px;
+    background-size: 5vh;
+  }
+
+  .text-field ul {
+    font-size: 12px;
+    position: relative;
+    top: -16px;
+  }
+
+  .map{
+    width: 80%;
+    height: auto;
+  }
+}
+
+/* Portrait and Landscape*/
+@media (min-width: 481px) and (max-width: 599px) {
+ 
+  .heading {
+    height: 8px;
+    padding: 0.5cm;
+  }
+
+  h1{
+    position: relative;
+    top: -20px;
+    font-size: 1.2em;
+  }
+
+  .text-field {
+    width: 30%;
+    background-color: #080808;
+  }
+  
+  .text-field input {
+    width: 58%;
+    height: 8px;
+    line-height: 1cm;
+    font-size: 15px;
+    background-size: 3vh;
+  }
+  
+  .text-field ul {
+    font-size: 14px;
+    position: relative;
+    top: -16px;
+  }
+  
+  .text-field li {
+    line-height: 1cm;
+  }
+  
+  .map{
+    width: 70%;
+  }
+}
+
+/*Portrait and Landscape */
+@media (min-width: 600px), (min-width: 666px) and (max-width: 900px){
+  
+  .heading {
+    height: 35px;
+  }
+
+  h1{
+    position: relative;
+    top:-15px;
+    font-size: 1.6em;
+  }
+
+  .text-field{
+    width: 25%;
+  }
+
+  .map{
+    width: 75%;
+  }
+}
+
+/*Portrait*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
+
+  .text-field li{
+    font-size: 1.2em;
+  }
+}
+
+/*Landscape*/
+@media (min-width: 901px ) and (orientation: landscape){
+  h1{
+    font-size: 1.9em;
+    top: -19px;
+  }
+
+  .text-field li{
+    font-size: 1.4em;
+  }
+
+  .text-field input {    
+    font-size: 17px;
+  
+  }
+}
