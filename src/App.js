@@ -5,7 +5,6 @@ import Header from './components/Header';
 import axios from 'axios';
 import './css/main.css';
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -51,9 +50,7 @@ class App extends Component {
   render() {
 
     return (
-      <div>
-        <div className={"menu"} tabIndex={"0"}>
-        </div>
+      <div >
         <Header />
         <Map google={this.props.google} />
           {this.state.venues.map(venue => {
