@@ -69,7 +69,7 @@ export default class Map extends Component {
 
     this.state.position.forEach((location, ind) => {
       const marker = new google.maps.Marker({
-        position: { lat: location.location.lat, lng: location.location.lng },
+        position: { lat: location.location.lat, lng: location.location.lng },address: location.location.address,
         map: this.map,
         title: location.name
       })
@@ -98,7 +98,7 @@ export default class Map extends Component {
       // change marker icon color of clicked marker
       marker.setIcon(enhanceIcon)
       infowindow.marker = marker
-      infowindow.setContent(`<h3>${marker.title}</h3><h4>You are here!</h4>`)
+      infowindow.setContent(`<h3>${marker.title}</h3><h4>${marker.position}</h4><h4>${marker.address}</h4>`)
       infowindow.open(this.map, marker)
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function () {

@@ -10,41 +10,35 @@ class App extends Component {
     super(props)
 
     this.state = {
-      latlong: 'lat,long',
-      venues: []
+      latlong: 'lat,lng',
+      venues: [],
+      showVenues: []
     }
   }
 
   componentDidMount() {
-    this.getLocation();
+    this.getVenues();
 
   }
 
-  getLocation = () => {
-    navigator.geolocation.getCurrentPosition(response => {
-      this.setState({
-        latlong: response.coords.latitude + "," + response.coords.latitude
-      }, () => {
-        this.getVenues("tech")
-      });
-    });
 
-  };
-
-
-  getVenues = (query) => {
+  getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
-    const params = {
+    const parameters = {
       client_id: "EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3",
       client_secret: "TPEDQBY5ORYEFAIXGS4NPPBTBOI2OAJRWURYVJGWQ0DEFRH2",
-      ll: this.state.latlong,
-      query: query,
+      ll: this.state.latlng,
+      query: 'sights',
       v: "20180211"
     };
 
-    axios.get(endPoint + new URLSearchParams(params)).then(response => {
-      this.setState({ venues: response.data.response.groups[0].items })
-    });
+    axios.get(endPoint + new URLSearchParams(parameters))
+    .then(response => {
+      this.setState({
+        venues: response.data.response.groups[0].items,
+        showVenues: response.data.response.groups[0].items
+      }, this.renderMap())
+    })
   }
 
   render() {
@@ -52,11 +46,7 @@ class App extends Component {
     return (
       <div >
         <Header />
-        <Map google={this.props.google} />
-          {this.state.venues.map(venue => {
-            return <li>{venue.venue.name} Location:
-        {venue.venue.location.address}</li>
-          })}        
+        <Map google={this.props.google} />      
       </div>
     );
   }
