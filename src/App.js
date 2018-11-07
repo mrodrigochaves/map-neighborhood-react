@@ -39,6 +39,10 @@ class App extends Component {
         showVenues: response.data.response.groups[0].items
       }, this.renderMap())
     })
+    .catch(error => {
+      alert(`Sorry, we could not fetch Foursquare data!`)
+      console.log("Show Foursquare error! " + error)
+    })
   }
 
   render() {
