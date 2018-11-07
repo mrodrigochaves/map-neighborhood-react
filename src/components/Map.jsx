@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { locations } from '../data/Position';
 
 
 export default class Map extends Component {
 
   state = {
-    position: [
-      // position : determines the position of the items marked later
-      { name: "Cinemaxx Glória", location: { lat: -21.20983949, lng: -41.88704682 } },
-      { name: "Cristo Redentor", location: { lat: -21.20097577, lng: -41.88172988 } },
-      { name: "São José do Avaí", location: { lat: -21.20188602, lng: -41.88968531 } },
-      { name: "Prefeitura Municipal", location: { lat: -21.19874516, lng: -41.904684232 } },
-      { name: "Centro Poliesportivo", location: { lat: -21.19495355, lng: -41.90685375 } }
-    ],
+    position: locations,
     query: '',
     markers: [],
     infowindow: new this.props.google.maps.InfoWindow(),
@@ -108,7 +102,7 @@ export default class Map extends Component {
       infowindow.open(this.map, marker)
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function () {
-        infowindow.marker = null
+        infowindow.marker.setIcon(defaultIcon)
       })
     }
   }
