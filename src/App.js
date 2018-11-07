@@ -24,33 +24,35 @@ class App extends Component {
 
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
-    const parameters = {
+    const params = {
       client_id: "EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3",
       client_secret: "TPEDQBY5ORYEFAIXGS4NPPBTBOI2OAJRWURYVJGWQ0DEFRH2",
-      ll: this.state.latlng,
+      ll: '-21.1877747,-41.8799408',
       query: 'sights',
-      v: "20180211"
+      v: "20180211",
+      limit: 5
     };
 
-    axios.get(endPoint + new URLSearchParams(parameters))
-    .then(response => {
-      this.setState({
-        venues: response.data.response.groups[0].items,
-        showVenues: response.data.response.groups[0].items
-      }, this.renderMap())
-    })
-    .catch(error => {
-      alert(`Sorry, we could not fetch Foursquare data!`)
-      console.log("Show Foursquare error! " + error)
-    })
+    axios.get(endPoint + new URLSearchParams(params))
+      .then(response => {
+        this.setState({
+          venues: response.data.response.groups[0].items,
+          showVenues: response.data.response.groups[0].items
+        }, this.renderMap())
+      })
+      .catch(error => {
+        alert(`Sorry, we could not fetch Foursquare data!`)
+        console.log("Show Foursquare error! " + error)
+      })
   }
 
   render() {
 
     return (
+
       <div >
         <Header />
-        <Map google={this.props.google} />      
+        <Map google={this.props.google} />
       </div>
     );
   }

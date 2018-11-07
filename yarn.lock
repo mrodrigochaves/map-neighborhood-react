@@ -7848,6 +7848,11 @@ react-error-overlay@^5.0.5:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.0.5.tgz#716ff1a92fda76bb89a39adf9ce046a5d740e71a"
   integrity sha512-ab0HWBgxdIsngHtMGU8+8gYFdTBXpUGd4AE4lN2VZvOIlBmWx9dtaWEViihuGSIGosCKPeHCnzFoRWB42UtnLg==
 
+react-foursquare@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-foursquare/-/react-foursquare-1.0.3.tgz#6ddcdc0eb2942f75dbc03a73262c52ee917a0cf8"
+  integrity sha1-bdzcDrKUL3XbwDpzJixS7pF6DPg=
+
 react-google-map@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-google-map/-/react-google-map-3.1.1.tgz#e47e42287ef6bc7510422fbfd5014ab2b4a0d1b4"
