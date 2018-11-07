@@ -10,9 +10,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      latlong: 'lat,lng',
-      venues: [],
-      showVenues: []
+      venues: []
     }
   }
 
@@ -20,7 +18,6 @@ class App extends Component {
     this.getVenues();
 
   }
-
 
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
@@ -37,8 +34,7 @@ class App extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items,
-          showVenues: response.data.response.groups[0].items
-        }, this.renderMap())
+        })
       })
       .catch(error => {
         alert(`Sorry, we could not fetch Foursquare data!`)
