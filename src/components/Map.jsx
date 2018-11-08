@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { locations } from '../data/Position';
-
+import axios from 'axios';
 
 export default class Map extends Component {
 
   state = {
+    venues:[],
     position: locations,
     query: '',
     markers: [],
@@ -19,6 +20,8 @@ export default class Map extends Component {
     // Create a "highlighted location" marker color for when the user
     // clicks on the marker.
     this.setState({ enhanceIcon: this.makeMarkerIcon('42be3f') })
+    this.getVenues();
+
   }
 
   loadMap() {
@@ -67,7 +70,7 @@ export default class Map extends Component {
     let { infowindow } = this.state
     const bounds = new google.maps.LatLngBounds()
 
-    this.state.position.forEach((location, ind) => {
+    this.state.position.forEach((location) => {
       const marker = new google.maps.Marker({
         position: { lat: location.location.lat, lng: location.location.lng },address: location.location.address,
         map: this.map,
@@ -98,7 +101,7 @@ export default class Map extends Component {
       // change marker icon color of clicked marker
       marker.setIcon(enhanceIcon)
       infowindow.marker = marker
-      infowindow.setContent(`<h3>${marker.title}</h3><h4>${marker.position}</h4><h4>${marker.address}</h4>`)
+  
       infowindow.open(this.map, marker)
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function () {
@@ -106,6 +109,71 @@ export default class Map extends Component {
       })
     }
   }
+
+
+getVenues = () => {
+  const clientId = "EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3";
+  const clientSecret = "TPEDQBY5ORYEFAIXGS4NPPBTBOI2OAJRWURYVJGWQ0DEFRH2";
+  const endPoint = "https://api.foursquare.com/v2/venues/search";
+  const { infowindow } = this.state;
+
+
+  axios
+  .get(endPoint , {
+      params: {
+        client_id: clientId,
+        client_secret: clientSecret,
+        v: "20180323",
+        limit: 1,
+        ll: "-21.1877747,-41.8799408",
+        query: "coffee"
+      }
+    })
+    .then(res => {
+      const venueId = res.data.response.venues['0'].id;
+      return axios.get(`https://api.foursquare.com/v2/venues/${venueId}`, {
+        params: {
+          client_id: clientId,
+          client_secret: clientSecret,
+          v: "20180323"
+        }
+      });
+    })
+    .then(res => {
+      // Set variables and update the state
+      const { venue } = res.data.response;
+
+      const name = venue.name;
+      const address = venue.location.address;
+
+      this.setState({
+        markerDetails: {
+          name,
+          address
+        }
+      });
+    })
+    .then(res => {
+      // Retrieve details from state and create content for infoWindow
+      const {
+        name,
+        address,
+      } = this.state.markerDetails;
+
+      const content = `
+        <div style="width: 100%;">
+          <h2>${name}</h2>
+          <p>${address}</p>
+        </div>
+      `;
+
+      // Set the infoWindow content
+      infowindow.setContent(`<h3>${content.name}</h3><h4>${content.address}</h4>`)
+    })
+    .catch(err => {
+      console.log("Error", err);
+    });
+};
 
   makeMarkerIcon = (markerColor) => {
     const { google } = this.props

@@ -1,44 +1,44 @@
 {
-  "name": "map-react",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/googlemaps": "^3.0.0",
-    "@types/markerclustererplus": "^2.1.29",
-    "@types/react": "^15.0.0",
-    "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
-    "chokidar": "^2.0.4",
-    "google-map-react": "^1.0.9",
-    "google-maps-react": "^2.0.2",
-    "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-foursquare": "^1.0.3",
-    "react-google-map": "^3.1.1",
-    "react-google-maps": "^9.4.5",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.5",
-    "reset-css": "^4.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "description": "Project from Nanodegree FEND Udacity",
-  "main": "index.js",
-  "repository": "git@github.com:mrodrigochaves/map-react.git",
-  "author": "Marcio Rodrigo <marciorodrigosp@gmail.com>",
-  "license": "MIT"
-}
+    "name": "map-react",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+      "@types/googlemaps": "^3.0.0",
+      "@types/markerclustererplus": "^2.1.29",
+      "@types/react": "^15.0.0",
+      "axios": "^0.18.0",
+      "babel-polyfill": "^6.26.0",
+      "chokidar": "^2.0.4",
+      "google-map-react": "^1.0.9",
+      "google-maps-react": "^2.0.2",
+      "prop-types": "^15.6.2",
+      "react": "^16.5.2",
+      "react-dom": "^16.5.2",
+      "react-foursquare": "^1.0.3",
+      "react-google-map": "^3.1.1",
+      "react-google-maps": "^9.4.5",
+      "react-router-dom": "^4.3.1",
+      "react-scripts": "2.0.5",
+      "reset-css": "^4.0.1"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": "react-app"
+    },
+    "browserslist": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ],
+    "description": "Project from Nanodegree FEND Udacity",
+    "main": "index.js",
+    "repository": "git@github.com:mrodrigochaves/map-react.git",
+    "author": "Marcio Rodrigo <marciorodrigosp@gmail.com>",
+    "license": "MIT"
+  }
