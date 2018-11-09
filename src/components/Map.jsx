@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { locations } from '../data/Position';
+
 
 export default class Map extends Component {
 
   state = {
-    position: locations,
+    position: venues,
     query: '',
     markers: [],
     infowindow: new this.props.google.maps.InfoWindow(),
