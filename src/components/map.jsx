@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import { locations } from './constants.jsx';
 
 export default class Map extends Component {
 
   state = {
-    position: venues,
+    places: locations ,
     query: '',
     markers: [],
     infowindow: new this.props.google.maps.InfoWindow(),
@@ -66,7 +66,7 @@ export default class Map extends Component {
     let { infowindow } = this.state
     const bounds = new google.maps.LatLngBounds()
 
-    this.state.position.forEach((location) => {
+    this.state.places.forEach((location) => {
       const marker = new google.maps.Marker({
         position: { lat: location.location.lat, lng: location.location.lng },address: location.location.address,
         map: this.map,
@@ -120,9 +120,9 @@ export default class Map extends Component {
   }
 
   render() {
-    const { position, query, markers, infowindow } = this.state
+    const { places, query, markers, infowindow } = this.state
     if (query) {
-      position.forEach((l, i) => {
+      places.forEach((l, i) => {
         if (l.name.toLowerCase().includes(query.toLowerCase())) {
           markers[i].setVisible(true)
         } else {
@@ -134,7 +134,7 @@ export default class Map extends Component {
         }
       })
     } else {
-      position.forEach((l, i) => {
+      places.forEach((l, i) => {
         if (markers.length && markers[i]) {
           markers[i].setVisible(true)
         }

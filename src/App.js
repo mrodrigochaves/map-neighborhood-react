@@ -1,51 +1,39 @@
 import React, { Component } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react';
-import Map from './components/Map';
-import Header from './components/Header';
+import Header from './components/header';
+import Map from './components/map';
 import axios from 'axios';
 import './css/main.css';
 
+
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      venues: []
-    }
-  }
+  state = {
+    venues: [],
+    axiosError: false
+  };
+
   componentDidMount() {
-    this.getVenues();
-  }
-
-  getVenues = () => {
-    const clientId = "EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3";
-    const clientSecret = "TPEDQBY5ORYEFAIXGS4NPPBTBOI2OAJRWURYVJGWQ0DEFRH2";
-    const endPoint = "https://api.foursquare.com/v2/venues/search";
-
-  axios
-  .get(endPoint , {
+    const endpoint = 'https://api.foursquare.com/v2/venues/explore?';
+    const config = {
       params: {
-        client_id: clientId,
-        client_secret: clientSecret,
-        v: "20180323",
-        limit: 1,
-        ll: "-21.1877747,-41.8799408",
-        query: "coffee"
+        client_id: 'EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3',
+        client_secret: 'TPEDQBY5ORYEFAIXGS4NPPBTBOI2OAJRWURYVJGWQ0DEFRH2',
+        v: '20180323',
+        ll: '-21.1877747,-41.8799408',
+        near: 'Itaperuna',
+        limit: 10
       }
-    })
-    .then(res => {
-      const venueId = res.data.response.venues['0'].id;
-      return axios.get(`https://api.foursquare.com/v2/venues/${venueId}`, {
-        params: {
-          client_id: clientId,
-          client_secret: clientSecret,
-          v: "20180323"
-        }
-      });
-    })
+    };
+
+    axios
+      .get(endpoint, config)
       .then(response => {
-        this.setState({
-          venues: response.data.response.groups[0].items,
-        })
+        const venuesResponse = response.data.response.groups['0'].items; // We took the places
+
+        let venuesArray = venuesResponse.map(venue => venue.venue); // We cleaned the result to have an array with the objects of each place only
+        console.log(venuesArray);
+
+        this.setState({ venues: venuesArray, axiosError: false }); // We saved this in state
       })
       .catch(error => {
         alert(`Sorry, we could not fetch Foursquare data!`)
@@ -56,12 +44,14 @@ class App extends Component {
   render() {
 
     return (
-
       <div >
         <Header />
-        <Map google={this.props.google} venues={this.state.venues}/>
-        
+        <ul>{this.state.venues.map(venue => (
+          <li key={venue.id}>{venue.name}</li>
+        ))}</ul>
+        <Map google={this.props.google} />
       </div>
+
     );
   }
 }
