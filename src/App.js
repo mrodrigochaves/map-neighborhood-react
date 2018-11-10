@@ -46,10 +46,9 @@ class App extends Component {
     return (
       <div >
         <Header />
-        <ul>{this.state.venues.map(venue => (
+        <Map google={this.props.google} places={this.state.venues.map(venue => (
           <li key={venue.id}>{venue.name}</li>
-        ))}</ul>
-        <Map google={this.props.google} />
+        ))} />
       </div>
 
     );
