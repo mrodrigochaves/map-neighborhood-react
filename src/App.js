@@ -13,7 +13,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const endpoint = 'https://api.foursquare.com/v2/venues/explore?';
+    const endPoint = 'https://api.foursquare.com/v2/venues/explore?';
     const config = {
       params: {
         client_id: 'EKGKFETBDEDSONFR1PMYDI1CXKCUMK5G1KZLHHVBSHNUHLN3',
@@ -26,7 +26,7 @@ class App extends Component {
     };
 
     axios
-      .get(endpoint, config)
+      .get(endPoint, config)
       .then(response => {
         const venuesResponse = response.data.response.groups['0'].items; // We took the places
 
@@ -46,9 +46,7 @@ class App extends Component {
     return (
       <div >
         <Header />
-        <Map google={this.props.google} places={this.state.venues.map(venue => (
-          <li key={venue.id}>{venue.name}</li>
-        ))} />
+        <Map google={this.props.google} venues={this.props.venues}/>
       </div>
 
     );
