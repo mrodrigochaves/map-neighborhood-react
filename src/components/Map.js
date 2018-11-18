@@ -36,6 +36,9 @@ export default class Map extends Component {
 
       this.map = new maps.Map(node, mapConfig)
       this.addMarkers()
+
+    } else {
+      alert('Sorry, Google Maps can&apos;t be loaded. Try later!');
     }
 
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react';
 import Header from './components/Header';
 import Map from './components/Map';
+import ErrorBoundary from './data/ErrorBoundary';
 import './css/main.css';
 
 class App extends Component {
@@ -9,10 +10,10 @@ class App extends Component {
   render() {
 
     return (
-      <div >
+      <ErrorBoundary >
         <Header />
         <Map google={this.props.google} />
-      </div>
+      </ErrorBoundary>
     );
   }
 }
