@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { locations } from './constants.jsx';
+import { locations } from '../data/Constants';
+import * as FoursquareApi from '../ultils/FoursquareApi';
 
 export default class Map extends Component {
-
   state = {
-    places: locations ,
+    places: locations,
     query: '',
     markers: [],
     infowindow: new this.props.google.maps.InfoWindow(),
@@ -40,6 +40,7 @@ export default class Map extends Component {
 
   }
 
+  //Create click function
   onclickPosition = () => {
     const that = this
     const { infowindow } = this.state
@@ -50,10 +51,12 @@ export default class Map extends Component {
         markers.findIndex(mk => mk.title.toLowerCase() === e.target.innerText.toLowerCase())
       that.populateInfoWindow(markers[markerInd], infowindow)
     }
+
     document.querySelector('.position-list').addEventListener('click', function (e) {
       if (e.target && e.target.nodeName === "LI") {
         displayInfowindow(e)
       }
+
     })
   }
 
@@ -61,6 +64,7 @@ export default class Map extends Component {
     this.setState({ query: e.target.value })
   }
 
+  //create marker on map
   addMarkers = () => {
     const { google } = this.props
     let { infowindow } = this.state
@@ -68,7 +72,7 @@ export default class Map extends Component {
 
     this.state.places.forEach((location) => {
       const marker = new google.maps.Marker({
-        position: { lat: location.location.lat, lng: location.location.lng },address: location.location.address,
+        position: { lat: location.location.lat, lng: location.location.lng }, address: location.location.address,
         map: this.map,
         title: location.name
       })
@@ -76,37 +80,94 @@ export default class Map extends Component {
       marker.addListener('click', () => {
         this.populateInfoWindow(marker, infowindow)
       })
+
       this.setState((state) => ({
         markers: [...state.markers, marker]
       }))
+
       bounds.extend(marker.position)
     })
+
     this.map.fitBounds(bounds)
   }
 
-  populateInfoWindow = (marker, infowindow) => {
+  //show Info Window with data from FourSquareAPI
+  populateInfoWindow(marker, infowindow) {
     const defaultIcon = marker.getIcon()
     const { enhanceIcon, markers } = this.state
+
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker !== marker) {
-      // reset the color of previous marker
       if (infowindow.marker) {
+        this.map.panTo(new window.google.maps.LatLng(marker.position.lat(), marker.position.lng()));
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+
+        // reset the color of previous marker
         const ind = markers.findIndex(m => m.title === infowindow.marker.title)
         markers[ind].setIcon(defaultIcon)
       }
+
       // change marker icon color of clicked marker
       marker.setIcon(enhanceIcon)
-      infowindow.marker = marker
+      infowindow.marker = marker;
+      setTimeout(function () {
+        marker.setAnimation(null);
+      }, 2000);
+
       // Set the infoWindow content
-      infowindow.setContent(`<h3>${marker.title}</h3><h4>${marker.position}</h4><h4>${marker.address}</h4>`)
-      infowindow.open(this.map, marker)
+      infowindow.setContent('<div>Loading..</div>');
+
+      infowindow.open(this.map, marker);
+
       // Make sure the marker property is cleared if the infowindow is closed.
       infowindow.addListener('closeclick', function () {
         infowindow.marker.setIcon(defaultIcon)
-      })
+      });
     }
+
+    //Using Fetch to get data about the location
+    FoursquareApi.requestFoursqureApi(marker.position.lat(), marker.position.lng()).then((response) => {
+      console.log(response);
+      if (response.response.venues.length > 0) {
+        let venue = response.response.venues[0];
+        let restName = "";
+        let restCity = "";
+        let restCountry = "";
+        let restAddress = "";
+        let restId = "";
+        if (venue.name) {
+          restName = venue.name;
+        }
+
+        if (venue.location && venue.location.formattedAddress && venue.location.formattedAddress.length > 0) {
+          restAddress = venue.location.formattedAddress[0];
+        }
+
+        if (venue.location && venue.location.city) {
+          restCity = venue.location.city;
+        }
+
+        if (venue.location && venue.location.country) {
+          restCountry = venue.location.country;
+        }
+
+        if (venue.id && venue.id) {
+          restId = venue.id;
+        }
+
+        infowindow.setContent('<div><div><h2>Name: ' + restName + '</h2></div><div>Address: ' + restAddress + '</div><div>City: ' + restCity + ' </div><div>Country: ' + restCountry + ' </div><div>ID: ' + restId + ' </div></div>');
+
+      }
+
+    }).catch(error => {
+      alert(`Sorry, we could not fetch Foursquare data!`)
+      console.log("Show Foursquare error! " + error)
+
+      infowindow.setContent('<div><h2>Can Not Load Data</h2></div>');
+    });
   }
 
+  //Customize the Marker icon
   makeMarkerIcon = (markerColor) => {
     const { google } = this.props
     let markerImage = new google.maps.MarkerImage(
@@ -120,6 +181,7 @@ export default class Map extends Component {
   }
 
   render() {
+    
     const { places, query, markers, infowindow } = this.state
     if (query) {
       places.forEach((l, i) => {
@@ -146,8 +208,8 @@ export default class Map extends Component {
         <div aria-label="container" className="container">
           <div className="text-field">
             <input role="search" type='text'
-              value={this.state.value} 
-              onChange={this.handleValueChange} placeholder="Search..." title="Type in a local"/>
+              value={this.state.value}
+              onChange={this.handleValueChange} placeholder="Search..." title="Type in a local" />
             <ul className="position-list" >{
               markers.filter(mk => mk.getVisible()).map((mk, i) =>
                 (<li aria-label="menu position" key={i}>{mk.title}</li>))
