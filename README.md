@@ -6,10 +6,14 @@ This app is to demonstrate the ability to use a js framework (React.js) & Google
 # Code
 CSS - The main.css menu make up the file CSS this is local.
 
-App.js (Main application file)
-Map.js (Contains the elements from the map)
-Header.js(Contains the element the header)
-Constants.js(Contains the places)
+App.js (Main application file).
+
+Map.js (Contains the elements from the map).
+
+Header.js(Contains the element the header).
+
+Constants.js(Contains the places).
+
 HTML - Index.html is where all the magic happens and all the data is binded.
 
 # Features
