@@ -6,7 +6,6 @@
     "@types/googlemaps": "^3.0.0",
     "@types/markerclustererplus": "^2.1.29",
     "@types/react": "^15.0.0",
-    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "chokidar": "^2.0.4",
     "google-map-react": "^1.0.9",
@@ -42,6 +41,7 @@
   "author": "Marcio Rodrigo <marciorodrigosp@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "axios": "^0.18.0"
   }
 }

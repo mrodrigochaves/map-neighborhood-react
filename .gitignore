@@ -2,5 +2,4 @@
 /build/
 .eslintrc.js
 package-lock.json
-package.json
 yarn.lock
